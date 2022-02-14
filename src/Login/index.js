@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -17,15 +18,33 @@ function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    if (data.email) {
-      setItemToLocalStorage('token', data.email);
-    }
-    const res = await loginUser(data);
+    let v = {
+      user: {
+        email: 'blah@gmail.com',
+        password: 'Yash6417878',
+      },
+    };
 
-    // if (res) {
-    user.login();
-    navigate('/user');
-    // }
+    // axios
+    //   .post(`https://salty-fjord-20749.herokuapp.com/login`, v)
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.error(err));
+    try {
+      const res = await loginUser(v);
+
+      console.log(res, 'Out');
+
+      // if (res) {
+      //   console.log(res, 'in');
+      //   // setItemToLocalStorage('token', res.headers.get('Authorization'));
+      //   user.login();
+      //   navigate('/user');
+      // } else {
+      //   throw new Error(res);
+      // }
+    } catch (e) {
+      console.log('Error', e);
+    }
   };
 
   return (

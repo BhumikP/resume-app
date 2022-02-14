@@ -1,25 +1,32 @@
 import axios from 'axios';
 
 //Url we get from env variable
-export const baseUrl = 'http://localhost:8080/api/';
+export const baseUrl = 'https://salty-fjord-20749.herokuapp.com';
+
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 //handle response
 const handleResponse = (response) => {
-  return {
-    error: false,
-    data: response.data,
-  };
+  console.log('network', response);
+  // return {
+  //   error: false,
+  //   data: response.data,
+  //   status: response.status,
+  // };
+  return response;
 };
 
 //handle error
 const handleError = (error) => {
+  console.log(error);
   return {
-    error: true,
-    data: error,
+    // error: true,
+    // data: error,
+    error,
   };
 };
 
-//Http methoda
+//Http method
 export const get = (url, params) => {
   axios
     .get(baseUrl + url, { params })
@@ -27,12 +34,11 @@ export const get = (url, params) => {
     .catch((error) => handleError(error));
 };
 
-export const post = (url, payload) => {
+export const post = (url, payload) =>
   axios
     .post(baseUrl + url, payload)
     .then((response) => handleResponse(response))
     .catch((error) => handleError(error));
-};
 
 export const put = (url, payload) => {
   axios
