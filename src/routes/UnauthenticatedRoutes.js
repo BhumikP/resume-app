@@ -7,7 +7,7 @@ function UnauthenticatedRoutes() {
   return (
     <Routes>
       <Route path="/welcome" element={<Welcome />} />
-      <Route index element={<Login />} />
+      <Route path="/" element={<Login />} />
     </Routes>
   );
 }

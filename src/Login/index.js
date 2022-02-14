@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { setItemToLocalStorage } from '../utils/helper';
@@ -17,15 +18,19 @@ function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    if (data.email) {
-      setItemToLocalStorage('token', data.email);
-    }
     const res = await loginUser(data);
 
-    // if (res) {
-    user.login();
-    navigate('/user');
-    // }
+    if (res.data) {
+      setItemToLocalStorage('token', res.data.authentication);
+      user.login();
+      toast.success('You have successfully logged in');
+      navigate('/user');
+    }
+    if (res.error) {
+      console.log('here');
+      toast.error(res.error);
+      return;
+    }
   };
 
   return (
