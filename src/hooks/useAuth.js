@@ -8,12 +8,12 @@ const AuthContext = React.createContext({
 });
 
 export const AuthProvider = (props) => {
-  const token = getItemFromLocalStorage('token');
+  const token = getItemFromLocalStorage('Authorization');
 
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
 
   useEffect(() => {
-    const token = getItemFromLocalStorage('token');
+    const token = getItemFromLocalStorage('Authorization');
 
     if (!token) {
       isLoggedIn && setIsLoggedIn(false);
